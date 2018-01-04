@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app xmlns:web="http://xmlns.jcp.org/xml/ns/javaee">
+	<display-name>Archetype Created Web Application</display-name>
+	<!-- ############ Cors（解决Ajax跨域） ############ -->
+	<filter>
+		<filter-name>Cors</filter-name>
+		<filter-class>com.thetransactioncompany.cors.CORSFilter</filter-class>
+		<init-param>
+			<param-name>cors.allowOrigin</param-name>
+			<param-value>*</param-value>
+		</init-param>
+		<init-param>
+			<param-name>cors.supportedMethods</param-name>
+			<param-value>GET, POST, HEAD, PUT, DELETE</param-value>
+		</init-param>
+		<init-param>
+			<param-name>cors.supportedHeaders</param-name>
+			<param-value>Accept, Origin, X-Requested-With, Content-Type, Last-Modified</param-value>
+		</init-param>
+		<init-param>
+			<param-name>cors.exposedHeaders</param-name>
+			<param-value>Set-Cookie</param-value>
+		</init-param>
+		<init-param>
+			<param-name>cors.supportsCredentials</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>Cors</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<!-- ############ Shiro ############ -->
+	<filter>
+		<filter-name>shiro</filter-name>
+		<filter-class>org.apache.shiro.web.servlet.ShiroFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>shiro</filter-name>
+		<url-pattern>/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+	</filter-mapping>
+
+	<!-- ############ JFinal ############ -->
+	<filter>
+		<filter-name>jfinal</filter-name>
+		<filter-class>com.jfinal.core.JFinalFilter</filter-class>
+		<init-param>
+			<param-name>configClass</param-name>
+			<param-value>cn.tentact.nebula.config.SystemConfig</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>jfinal</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<listener>
+		<listener-class>org.apache.shiro.web.env.EnvironmentLoaderListener</listener-class>
+	</listener>
+
+</web-app>
